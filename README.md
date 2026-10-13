@@ -1,10 +1,12 @@
+## ITAI 2372 - Module 03 - AI in Healthcare - Stuart Fairchild
+
 # Medication Interaction Assistant
 
-Interactions between drugs can be a serious issue for medical patients and doctors alike. This is an application that runs locally on your computer and can identify possible interactions that drugs may have for a patient. 
+Interactions between drugs can be a serious issue for medical patients and doctors alike. This is an application that runs locally on your computer and can identify possible interactions that drugs may have for a patient.
 
 A Dockerized browser application for **informational** medication-interaction screening using a local DDInter-derived knowledge base, plus a CPU-hosted chatbot powered by Ollama. This is a prototype, not a clinically validated medical device or a substitute for a pharmacist/prescriber.
 
-Medication interaction Assitant 
+Medication interaction Assitant
 
 ![Application interface](/images/interface.png)
 
@@ -26,16 +28,16 @@ Medication interaction Assitant
 ## Install and run
 
 1. Extract this ZIP.
-   
+
    **SKIP STEPS 2 and 3 for now. The medication info is bundled for demonstration**
 
 ~~2. Create a `data` folder beside `compose.yaml` if it does not exist.~~
 
 ~~3. Obtain the compatible JSON knowledge base from the upstream project: <https://github.com/pbiondich/openmrs-ddi-knowledge-base>. Place it at:~~
 
-   ~~`data/ddi_knowledge_base.json`~~
+~~`data/ddi_knowledge_base.json`~~
 
-   ~~The app expects the schema used by that project: top-level `drugs`, `interactions`, and `mechanisms` fields. Confirm the downloaded file matches this schema before use.~~
+~~The app expects the schema used by that project: top-level `drugs`, `interactions`, and `mechanisms` fields. Confirm the downloaded file matches this schema before use.~~
 
 4. From the project directory, run:
 
@@ -76,7 +78,6 @@ To change the model, update **both** `OLLAMA_MODEL` in `compose.yaml` and the mo
 
 OpenMRS Drug-Drug Interaction Knowledge Base:
 https://github.com/pbiondich/openmrs-ddi-knowledge-base/tree/main
-
 
 ## Application Overview
 
