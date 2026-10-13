@@ -1,0 +1,48 @@
+services:
+  medication-checker:
+    build: .
+    container_name: medication-interaction-checker
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data:ro
+    environment:
+      - DDI_KB_PATH=/app/data/ddi_knowledge_base.json
+      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_MODEL=qwen2.5:3b
+      - CHAT_TIMEOUT=120
+    depends_on:
+      ollama-model-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: medication-checker-ollama
+    volumes:
+      - ollama_models:/root/.ollama
+    # Ollama uses CPU by default when no supported GPU is passed through.
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  ollama-model-init:
+    image: ollama/ollama:latest
+    container_name: medication-checker-model-init
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["ollama pull qwen2.5:3b"]
+    volumes:
+      - ollama_models:/root/.ollama
+    restart: "no"
+
+volumes:
+  ollama_models:
